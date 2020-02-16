@@ -53,8 +53,8 @@ def getTrop(sefer, perek, pasuk):
     out=[]
     taamim={
         'ZAR2':'zarka',
-        'SGL1':'SEGOL',
-        'RVI2':'rivii',
+        'SGL1':'segol',
+        'RVI2':'rvii',
         'MHP4':'mapakh',
         'PSH2':'pashta',
         'MER4':'mercha',
@@ -101,19 +101,6 @@ def getTrop(sefer, perek, pasuk):
                 out.append('munach-rvii')
             elif tropout[j+1]=='ATN0':
                 out.append('munach-etnachta')
-            elif tropout[j+1]=='MUN4':
-                while tropout[j+1]=='MUN4':
-                    while tropout[j+1]=='MQF5':
-                        j+=1
-                    j+=1
-                if tropout[j+1]=='ZAR2':
-                    out.append('munach-zarka')
-                elif tropout[j+1]=='SGL1':
-                    out.append('munach-segol')
-                elif tropout[j+1]=='ATN0':
-                    out.append('munach-etnachta')
-                else:
-                    out.append('munach')
             else:
                 out.append('munach')
     return out
