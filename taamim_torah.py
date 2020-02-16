@@ -26,6 +26,7 @@ trop_notes = {
     'tvir': [2, 0, -1, 0, 2],
     'yetiv': [9, 7],
     'shalshelet': [-5, 0, 2, 4, 5, 7, 5, 4, 2, 0, 2, 4, 5, 7, 5, 4, 2, 0, 2, 4, 5, 7, 5, 4, 2, 0],
+    'munach': [0, 4, 2],
     'sof-pasuk': [2, 4, 0]
 }
 
@@ -58,6 +59,7 @@ trop_name = {
     'yetiv': ['Yei', 'iv'],
     'shalshelet': ['Shal', 'she', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'let'],
     'sof-pasuk': ['Sof Pa', 'su', 'uk'],
+    'munach': ['Mu', 'na', 'ach']
 }
 
 trop = ['munach-zarka', 'zarka', 'munach-segol',
@@ -66,6 +68,6 @@ trop = ['munach-zarka', 'zarka', 'munach-segol',
     'mercha', 'tipcha', 'munach-etnachta', 'etnachta',
     'pazer', 'tlisha-ktana', 'tlisha-gdola', 'kadma',
     'vazla', 'azla-geresh', 'gershaim', 'darga', 'tvir', 
-    'yetiv', 'shalshelet', 'sof-pasuk']
+    'yetiv', 'shalshelet', 'sof-pasuk', 'munach']
 
 # Use the force Luke!

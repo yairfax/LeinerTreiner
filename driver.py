@@ -10,13 +10,7 @@ from utils import *
 parser = argparse.ArgumentParser()
 parser.add_argument('--taam', '-t', type=str, required=True, nargs="+", help="""
 Sequence of t'amim to be played. Options are:
-    ['munach-zarka', 'zarka', 'munach-segol',
-    'segol', 'munach-munach-rvii', 'munach-rvii', 'rvii',
-    'mapakh', 'pashta', 'munach-katon', 'zakef-katon',
-    'mercha', 'tipcha', 'munach-etnachta', 'etnachta',
-    'pazer', 'tlisha-ktana', 'tlisha-gdola', 'kadma',
-    'vazla', 'azla-geresh', 'gershaim', 'darga', 'tvir', 
-    'yetiv', 'shalshelet', 'sof-pasuk'].
+    %s.
 Note that the symbols for different munachim include
 the t'amim that follow them for the sake of differentiation,
 but the actual taam is still just a munach. For example,
@@ -26,7 +20,7 @@ Note also that it is up to the user to input t'amim that make
 sense in sequence. For example, the sequence 'munach-munach-rvii' 'tlisha-gdola'
 would not be found anywhere in Torah, but our program
 doesn't differentiate that.
-""")
+""" % str(trop))
 
 args = parser.parse_args()
 
@@ -43,4 +37,9 @@ given_transpose = [i - offset for i in given]
 
 expected_notes, expected_timing, pronunc = get_notes(given_taamim)
 
-plot_taam(expected_notes, expected_timing, given_transpose, midi2note(given[0]), pronunc)
+changed_times = grad_descent(given, np.linspace(0, 1, len(given)), expected_notes, expected_timing)
+
+print(changed_times)
+print(np.linspace(0, 1, len(given)))
+
+plot_taam(expected_notes, expected_timing, given_transpose, changed_times, midi2note(given[0]), pronunc)
