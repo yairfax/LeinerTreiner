@@ -23,7 +23,7 @@ stream = p.open(format = p.get_format_from_width(wf.getsampwidth()),
 data = wf.readframes(chunk)
 
 # Play the sound by writing the audio data to the stream
-while data != '':
+while data:
     stream.write(data)
     data = wf.readframes(chunk)
 
