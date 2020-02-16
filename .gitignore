@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 *.m4a
+*.wav
