@@ -130,3 +130,5 @@ dmypy.json
 
 *.m4a
 *.wav
+
+output.wav

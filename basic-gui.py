@@ -79,16 +79,14 @@ def recordWav():
     wf.writeframes(b''.join(frames))
     wf.close()
 
-
 def startPlay():
     if not recording and not playing:
-        _thread.start_new_thread(playWav, ())
+        _thread.start_new_thread(playWav, ('output.wav',))
     else:
         print('Already Playing!')
 
-def playWav():
+def playWav(filename):
     global playing
-    filename = 'output.wav'
 
     # Set chunk size of 1024 samples per data frame
     chunk = 1024  
@@ -119,11 +117,8 @@ def playWav():
     stream.close()
     p.terminate()
 
-def analyze():
+def analyze_gen(expected_taamim):
     given = extract_notes_from_file('output.wav')
-
-    seferVal = seferMenuVals[seferE.get()]
-    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
 
     expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
 
@@ -137,6 +132,20 @@ def analyze():
 
     plot_taam(expected_notes, expected_timing, given_transpose, changed_times, midi2note(given[0]), pronunc)
 
+def analyze():
+    seferVal = seferMenuVals[seferE.get()]
+    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
+
+    analyze_gen(expected_taamim)
+
+    
+
+def analyzeList():
+    expected_taamim = taamListE.get().split(',')
+
+    analyze_gen(expected_taamim)
+    
+
 root = Tk()
 root.title("Leining Treining")
 root.geometry("500x500")
@@ -145,11 +154,12 @@ app = Frame(root)
 app.grid()
 
 # start = Button(app, text="Start Scan", command=start)
-record = Button(app, text="Record", command=record)
 example = Button(app, text="Example", command=examplePlay)
-play = Button(app, text="Play", command=startPlay)
+record = Button(app, text="Record", command=record)
+play = Button(app, text="Play Recording", command=startPlay)
 stop = Button(app, text="Stop", command=stop)
-analyzeTaam = Button(app, text="Analyze", command=analyze)
+analyzeTaam = Button(app, text="Analyze Pasuk", command=analyze)
+analyzeListButton = Button(app, text="Analyze List", command=analyzeList)
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
 
@@ -160,20 +170,27 @@ seferE.set("BeReishit") # initial value
 seferMenu = OptionMenu(app, seferE, "BeReishit", "Shemot", "VaYikra", "BaMidbar", "Devarim")
 seferMenuVals = {'BeReishit':1,'Shemot':2,'VaYikra':3,'BaMidbar':4,'Devarim':5}
 
-# # start.grid()
+taamListDesc = Label(app, text='Enter a commma-separated list of these words in the entry below:\n'\
+    'munach-zarka,zarka,munach-segol,segol,\nmunach-munach-rvii,munach-rvii,rvii,maphakh,pashta,\n'\
+    'munach-katon,zakef-katon,zakef-gadol,mercha,\ntipcha,munach-etnachta,etnachta,pazer,\n'\
+    'tlisha-ktana,tlisha-gdola,kadma,vazla,azla-geresh,\ngershaim,darga,tvir,yetiv,shalshelet,sof-pasuk\n'\
+    'Note that munachim are denoted relative to the\ntaam that follows them, so munach-zarka is the\n'\
+    'munach preceding a zarka, not including the zarka')
+
+taamListE = Entry(app)
+pasukE = Entry(app)
+perekE = Entry(app)
+
+seferL = Label(app, text = "Sefer:")
+perekL = Label(app, text = "Perek:") 
+pasukL = Label(app, text = "Pasuk:")
+
+w.grid(row =1, column = 0, columnspan=5)
+
 record.grid(row = 2, column = 0)
 play.grid(row = 2, column = 1)
 stop.grid(row = 2, column = 2)
 example.grid(row=2,column=3)
-
-w.grid(row =1, column = 0, columnspan=5)
-
-seferL = Label(app, text = "Sefer:")
-perekL = Label(app, text = "Perek:") 
-pasukL = Label(app, text = "Pasuk:") 
-
-pasukE = Entry(app)
-perekE = Entry(app)
 
 seferL.grid(row=3, column=0)
 seferMenu.grid(row=3, column=1)
@@ -182,7 +199,13 @@ perekE.grid(row=4, column=1)
 pasukL.grid(row=5, column=0)
 pasukE.grid(row=5, column=1)
 
-
 analyzeTaam.grid(row=6, column=0)
+
+taamListDesc.grid(row=7,column=0, columnspan=5, rowspan=12)
+
+taamListE.grid(row=19, column=0, columnspan=5)
+
+analyzeListButton.grid(row=20, column=0)
+
 
 root.mainloop()
