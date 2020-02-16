@@ -12,7 +12,7 @@ def extract_notes_from_file(start_note, path):
 
     samplerate = s.samplerate
 
-    tolerance = 0.8
+    tolerance = 0.2
 
     notes_o = notes("default", win_s, hop_s, samplerate)
 
