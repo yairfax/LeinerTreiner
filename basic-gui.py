@@ -22,9 +22,9 @@ def examplePlay():
     seferVal = seferMenuVals[seferE.get()]
     expected_taamim, words = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
 
-    print(words)
-
-    example_gen(expected_taamim)
+    pasuk.config(text=words)
+    
+    _thread.start_new_thread(example_gen, (expected_taamim,))
 
 def exampleListPlay():
     expected_taamim = taamListE.get().split(',')
@@ -159,7 +159,7 @@ def analyzeList():
 
 root = Tk()
 root.title("Leining Treining")
-root.geometry("500x500")
+root.geometry("1000x1000")
 
 app = Frame(root)
 app.grid()
@@ -175,6 +175,8 @@ listExampleButton = Button(app, text="List Example", command=exampleListPlay)
 
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
+pasuk = Label(app)
+
 
 # Sefer choice
 seferE = StringVar(app)
@@ -214,12 +216,14 @@ pasukE.grid(row=5, column=1)
 
 analyzeTaam.grid(row=6, column=0)
 
-taamListDesc.grid(row=7,column=0, columnspan=5, rowspan=12)
+pasuk.grid(row=7, column=0, columnspan=5, rowspan=3)
 
-taamListE.grid(row=19, column=0, columnspan=5)
+taamListDesc.grid(row=10,column=0, columnspan=5, rowspan=12)
 
-analyzeListButton.grid(row=20, column=0)
-listExampleButton.grid(row=20, column=1)
+taamListE.grid(row=22, column=0, columnspan=5)
+
+analyzeListButton.grid(row=23, column=0)
+listExampleButton.grid(row=23, column=1)
 
 
 root.mainloop()
