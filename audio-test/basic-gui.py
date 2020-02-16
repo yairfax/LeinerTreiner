@@ -70,6 +70,12 @@ def examplePlay():
     else:
         print('Already Playing!')
 
+def exampleListPlay():
+    if not recording and not playing:
+        _thread.start_new_thread(playWav, ('exampleList.wav',))
+    else:
+        print('Already Playing!')
+
 def startPlay():
     if not recording and not playing:
         _thread.start_new_thread(playWav, ('output.wav',))
@@ -128,12 +134,14 @@ app = Frame(root)
 app.grid()
 
 # start = Button(app, text="Start Scan", command=start)
-example = Button(app, text="Example", command=examplePlay)
+example = Button(app, text="Pasuk Example", command=examplePlay)
 record = Button(app, text="Record", command=record)
 play = Button(app, text="Play Recording", command=startPlay)
 stop = Button(app, text="Stop", command=stop)
 analyzeTaam = Button(app, text="Analyze Pasuk", command=analyze)
 analyzeListButton = Button(app, text="Analyze List", command=analyzeList)
+listExampleButton = Button(app, text="List Example", command=exampleListPlay)
+
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
 
@@ -154,7 +162,7 @@ pasukE = Entry(app)
 perekE = Entry(app)
 
 seferL = Label(app, text = "Sefer:")
-perekL = Label(app, text = "Perek:") 
+perekL = Label(app, text = "Perek:")
 pasukL = Label(app, text = "Pasuk:")
 
 w.grid(row =1, column = 0, columnspan=5)
@@ -178,6 +186,7 @@ taamListDesc.grid(row=7,column=0, columnspan=5, rowspan=7)
 taamListE.grid(row=14, column=0, columnspan=5)
 
 analyzeListButton.grid(row=15, column=0)
+listExampleButton.grid(row=15, column=1)
 
 
 root.mainloop()
