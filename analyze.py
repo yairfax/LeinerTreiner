@@ -2,7 +2,7 @@ from aubio import source, notes, midi2note, pitch
 from itertools import groupby
 import numpy as np
 
-def extract_notes_from_file(start_note, path):
+def extract_notes_from_file(path):
     s = source(path)
 
     downsample = 1
@@ -48,18 +48,23 @@ def extract_notes_from_file(start_note, path):
         # total_frames += read
         # if read < hop_s: break
 
-    
     pitches = list(filter(lambda num: num != 0, pitches))
     pitches = [i[0] for i in groupby(pitches)]
 
     # print(pitches)
     # print([midi2note(i) for i in pitches])
 
-    return pitches
 
+    std = np.std(pitches)
+    mean = np.mean(pitches)
+    pitches = list(filter(lambda num: num < mean + std and num > mean - std, pitches))
+    
+    return pitches
 
 
     # print(notes_obj)
     # print([midi2note(i) for i in notes_obj])
 
     # return notes_obj
+
+# extract_notes_from_file('output.wav')

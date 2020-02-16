@@ -5,10 +5,21 @@ import _thread
 from scrape import *
 from analyze import *
 from utils import *
-from plotter import *
+from Plotter import *
+from play import *
 
 recording = False
 playing = False
+
+def examplePlay():
+    seferVal = seferMenuVals[seferE.get()]
+    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
+
+    expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
+
+    transposed_expected = [i + 70 for i in expected_notes]
+
+    play_taam(transposed_expected)
 
 def stop():
     global playing
@@ -109,14 +120,18 @@ def playWav():
     p.terminate()
 
 def analyze():
-    given = extract_notes_from_file(0, 'output.wav')
+    given = extract_notes_from_file('output.wav')
 
-    expected_taamim = getTrop(1, int(perekE.get()), int(pasukE.get()))
-
-    offset = given[0] - trop_notes[expected_taamim[0]][0]
-    given_transpose = [i - offset for i in given]
+    seferVal = seferMenuVals[seferE.get()]
+    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
 
     expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
+
+    mean_g = np.mean(given)
+    mean_e = np.nanmean(expected_notes)
+
+    offset = mean_g - mean_e
+    given_transpose = [i - offset for i in given]
 
     changed_times = np.linspace(0, 1, len(given_transpose))
 
@@ -131,16 +146,25 @@ app.grid()
 
 # start = Button(app, text="Start Scan", command=start)
 record = Button(app, text="Record", command=record)
+example = Button(app, text="Example", command=examplePlay)
 play = Button(app, text="Play", command=startPlay)
 stop = Button(app, text="Stop", command=stop)
 analyzeTaam = Button(app, text="Analyze", command=analyze)
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
 
+# Sefer choice
+seferE = StringVar(app)
+seferE.set("BeReishit") # initial value
+
+seferMenu = OptionMenu(app, seferE, "BeReishit", "Shemot", "VaYikra", "BaMidbar", "Devarim")
+seferMenuVals = {'BeReishit':1,'Shemot':2,'VaYikra':3,'BaMidbar':4,'Devarim':5}
+
 # # start.grid()
 record.grid(row = 2, column = 0)
 play.grid(row = 2, column = 1)
 stop.grid(row = 2, column = 2)
+example.grid(row=2,column=3)
 
 w.grid(row =1, column = 0, columnspan=5)
 
@@ -148,12 +172,11 @@ seferL = Label(app, text = "Sefer:")
 perekL = Label(app, text = "Perek:") 
 pasukL = Label(app, text = "Pasuk:") 
 
-seferE = Entry(app)
 pasukE = Entry(app)
 perekE = Entry(app)
 
 seferL.grid(row=3, column=0)
-seferE.grid(row=3, column=1)
+seferMenu.grid(row=3, column=1)
 perekL.grid(row=4, column=0)
 perekE.grid(row=4, column=1)
 pasukL.grid(row=5, column=0)
