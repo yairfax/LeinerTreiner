@@ -1,7 +1,7 @@
 from aubio import source, notes, midi2note
 import numpy as np
 
-def parse(path):
+def extract_notes_from_file(start_note, path):
     s = source(path)
 
     downsample = 1
@@ -16,7 +16,7 @@ def parse(path):
 
     notes_o = notes("default", win_s, hop_s, samplerate)
 
-    # print("%8s" % "time","[ start","vel","last ]")
+    print("%8s" % "time","[ start","vel","last ]")
 
     # total number of frames read
     total_frames = 0
@@ -25,11 +25,11 @@ def parse(path):
         samples, read = s()
         new_note = notes_o(samples)
         if (new_note[0] != 0):
-            # note_str = ' '.join(["%.2f" % i for i in new_note])
-            # print("%.6f" % (total_frames/float(samplerate)), new_note)
+            note_str = ' '.join(["%.2f" % i for i in new_note])
+            print("%.6f" % (total_frames/float(samplerate)), new_note)
             if new_note[0] < 60:
                 notes_obj.append(int(new_note[0]))
         total_frames += read
         if read < hop_s: break
 
-    return [notes_obj[i] - notes_obj[0] for i in range(len(notes_obj))]
+    return notes_obj
