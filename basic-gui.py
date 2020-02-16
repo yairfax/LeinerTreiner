@@ -2,6 +2,10 @@ from tkinter import *
 import pyaudio
 import wave
 import _thread
+from scrape import *
+from analyze import *
+from utils import *
+from plotter import *
 
 recording = False
 playing = False
@@ -105,7 +109,20 @@ def playWav():
     p.terminate()
 
 def analyze():
-    print("Sefer:",seferE.get()," Perek:", perekE.get(), " Pasuk:", pasukE.get())
+    given = extract_notes_from_file(0, 'output.wav')
+
+    
+
+    expected_taamim = getTrop(1, int(perekE.get()), int(pasukE.get()))
+
+    offset = given[0] - trop_notes[expected_taamim[0]][0]
+    given_transpose = [i - offset for i in given]
+
+    expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
+
+    changed_times = np.linspace(0, 1, len(given_transpose))
+
+    plot_taam(expected_notes, expected_timing, given_transpose, changed_times, midi2note(given[0]), pronunc)
 
 root = Tk()
 root.title("Leining Treining")
