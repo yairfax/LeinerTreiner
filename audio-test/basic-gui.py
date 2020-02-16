@@ -64,16 +64,20 @@ def recordWav():
     wf.writeframes(b''.join(frames))
     wf.close()
 
-
-def startPlay():
+def examplePlay():
     if not recording and not playing:
-        _thread.start_new_thread(playWav, ())
+        _thread.start_new_thread(playWav, ('example.wav',))
     else:
         print('Already Playing!')
 
-def playWav():
+def startPlay():
+    if not recording and not playing:
+        _thread.start_new_thread(playWav, ('output.wav',))
+    else:
+        print('Already Playing!')
+
+def playWav(filename):
     global playing
-    filename = 'output.wav'
 
     # Set chunk size of 1024 samples per data frame
     chunk = 1024  
@@ -105,7 +109,11 @@ def playWav():
     p.terminate()
 
 def analyze():
-    print("Sefer:",seferE.get()," Perek:", perekE.get(), " Pasuk:", pasukE.get())
+    seferVal = seferMenuVals[seferE.get()]
+    perekVal = int(perekE.get())
+    pasukVal = int(pasukE.get())
+
+    print("Sefer:",seferVal," Perek:", perekVal, " Pasuk:", pasukVal)
 
 root = Tk()
 root.title("Leining Treining")
@@ -115,17 +123,26 @@ app = Frame(root)
 app.grid()
 
 # start = Button(app, text="Start Scan", command=start)
+example = Button(app, text="Example", command=examplePlay)
 record = Button(app, text="Record", command=record)
-play = Button(app, text="Play", command=startPlay)
+play = Button(app, text="Play Recording", command=startPlay)
 stop = Button(app, text="Stop", command=stop)
 analyzeTaam = Button(app, text="Analyze", command=analyze)
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
 
+# Sefer choice
+seferE = StringVar(app)
+seferE.set("BeReishit") # initial value
+
+seferMenu = OptionMenu(app, seferE, "BeReishit", "Shemot", "VaYikra", "BaMidbar", "Devarim")
+seferMenuVals = {'BeReishit':1,'Shemot':2,'VaYikra':3,'BaMidbar':4,'Devarim':5}
+
 # # start.grid()
 record.grid(row = 2, column = 0)
 play.grid(row = 2, column = 1)
 stop.grid(row = 2, column = 2)
+example.grid(row=2,column=3)
 
 w.grid(row =1, column = 0, columnspan=5)
 
@@ -133,12 +150,11 @@ seferL = Label(app, text = "Sefer:")
 perekL = Label(app, text = "Perek:") 
 pasukL = Label(app, text = "Pasuk:") 
 
-seferE = Entry(app)
 pasukE = Entry(app)
 perekE = Entry(app)
 
 seferL.grid(row=3, column=0)
-seferE.grid(row=3, column=1)
+seferMenu.grid(row=3, column=1)
 perekL.grid(row=4, column=0)
 perekE.grid(row=4, column=1)
 pasukL.grid(row=5, column=0)
