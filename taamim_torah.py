@@ -5,7 +5,7 @@ trop_notes = {
     'segol': [2, 0, 2, 4, 2],
     'munach-munach-rvii': [0, 2, 4, 0, 2],
     'munach-rvii': [2, 5, 4],
-    'rvii': [4, 2, 0, -1, -3],
+    'rvii': [2, 0, -1, -3],
     'mapakh': [7, 0],
     'pashta': [0, 7, 4],
     'munach-katon': [4, 2, 7],
