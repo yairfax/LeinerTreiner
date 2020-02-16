@@ -20,7 +20,9 @@ def example_gen(expected_taamim):
 
 def examplePlay():
     seferVal = seferMenuVals[seferE.get()]
-    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
+    expected_taamim, words = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
+
+    print(words)
 
     example_gen(expected_taamim)
 
@@ -143,7 +145,7 @@ def analyze_gen(expected_taamim):
 
 def analyze():
     seferVal = seferMenuVals[seferE.get()]
-    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
+    expected_taamim, _ = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
 
     analyze_gen(expected_taamim)
 
