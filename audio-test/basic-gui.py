@@ -149,24 +149,20 @@ taamListDesc = Label(app, text='Enter a commma-separated list of these words in 
     'munach-katon,zakef-katon,zakef-gadol,mercha,\ntipcha,munach-etnachta,etnachta,pazer,\n'\
     'tlisha-ktana,tlisha-gdola,kadma,vazla,azla-geresh,\ngershaim,darga,tvir,yetiv,shalshelet,sof-pasuk')
 
-# # start.grid()
+taamListE = Entry(app)
+pasukE = Entry(app)
+perekE = Entry(app)
+
+seferL = Label(app, text = "Sefer:")
+perekL = Label(app, text = "Perek:") 
+pasukL = Label(app, text = "Pasuk:")
+
+w.grid(row =1, column = 0, columnspan=5)
+
 record.grid(row = 2, column = 0)
 play.grid(row = 2, column = 1)
 stop.grid(row = 2, column = 2)
 example.grid(row=2,column=3)
-analyzeListButton.grid(row=14, column=0)
-
-w.grid(row =1, column = 0, columnspan=5)
-taamListDesc.grid(row=6,column=0, columnspan=5, rowspan=7)
-
-seferL = Label(app, text = "Sefer:")
-perekL = Label(app, text = "Perek:") 
-pasukL = Label(app, text = "Pasuk:") 
-
-taamListE = Entry(app)
-pasukE = Entry(app)
-perekE = Entry(app)
-# taamListE = Entry(app)
 
 seferL.grid(row=3, column=0)
 seferMenu.grid(row=3, column=1)
@@ -174,9 +170,14 @@ perekL.grid(row=4, column=0)
 perekE.grid(row=4, column=1)
 pasukL.grid(row=5, column=0)
 pasukE.grid(row=5, column=1)
-taamListE.grid(row=13, column=0, columnspan=5)
-
 
 analyzeTaam.grid(row=6, column=0)
+
+taamListDesc.grid(row=7,column=0, columnspan=5, rowspan=7)
+
+taamListE.grid(row=14, column=0, columnspan=5)
+
+analyzeListButton.grid(row=15, column=0)
+
 
 root.mainloop()
