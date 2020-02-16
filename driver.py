@@ -3,10 +3,11 @@ from itertools import groupby
 import sys
 from aubio import midi2note
 from analyze import *
-# from plotter import *
+from plotter import *
 from taamim_torah import *
 from utils import *
 from play import *
+from scrape import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--taam', '-t', type=str, required=True, nargs="+", help="""
@@ -25,22 +26,25 @@ doesn't differentiate that.
 
 args = parser.parse_args()
 
-given_taamim = args.taam
-for taam in given_taamim:
+expected_taamim = args.taam
+
+expected_taamim = getTrop(1, 1, 1)
+
+for taam in expected_taamim:
     if taam not in trop:
         print("Taam '%s' not found" % taam)
         sys.exit(1)
 
-given = extract_notes_from_file(0, 'test2.m4a')
+given = extract_notes_from_file(0, 'test.m4a')
 
-offset = given[0] - trop_notes[given_taamim[0]][0]
+offset = given[0] - trop_notes[expected_taamim[0]][0]
 given_transpose = [i - offset for i in given]
 
-expected_notes, expected_timing, pronunc = get_notes(given_taamim)
+expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
 
 transposed_expected = [i + 70 for i in expected_notes]
 
-play_taam(transposed_expected)
+# play_taam(transposed_expected)
 
 # print(expected_timing)
 
@@ -50,4 +54,4 @@ changed_times = np.linspace(0, 1, len(given_transpose))
 # print(changed_times)
 # print(np.linspace(0, 1, len(given)))
 
-# plot_taam(expected_notes, expected_timing, given_transpose, changed_times, midi2note(given[0]), pronunc)
+plot_taam(expected_notes, expected_timing, given_transpose, changed_times, midi2note(given[0]), pronunc)
