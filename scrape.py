@@ -7,6 +7,7 @@ def getTrop(sefer, perek, pasuk):
     # options.add_argument('headless')
     # driver = webdriver.Chrome("/usr/local/bin/chromedriver",options=options)
     notes=[]
+    wordsheb=[]
     #driver.get("https://www.tanakhml.org/d11.php2xml?sfr="+sefer+"&prq="+perek+"&psq=1&lvl=99&pnt=tru&acc=tru&dia=tru&enc=mcw&xml=tru")
 
     r = requests.get("https://www.tanakhml.org/d11.php2xml?sfr=%d&prq=%d&pnt=tru&acc=fls&dia=tru&enc=mcw&xml=tru" % (sefer, perek))
@@ -28,8 +29,29 @@ def getTrop(sefer, perek, pasuk):
                     d=d.split('.')
                     notes.append(int(d[2]))
                 notes.append(c.next_element.next_element[7:11])
+            for e in b.findAll('span',attrs={'class':'bhs_inline'}):
+                if isinstance(notes[len(wordsheb)],int):
+                    wordsheb.append(notes[len(wordsheb)])
+                wordsheb.append(e.text)
     # driver.quit()
 
+    pasukoutheb=[]
+    printer=False
+    found=False
+    lastword=""
+    for i in range(len(wordsheb)):
+        if i%2!=1:
+            if isinstance(wordsheb[i],int) and wordsheb[i]!=pasuk:
+                if printer==True:
+                    lastword=wordsheb[i-1]
+                printer=False
+            if printer==True:
+                pasukoutheb.append(wordsheb[i])
+            if isinstance(wordsheb[i],int) and wordsheb[i]==pasuk and found==False:
+                printer=True
+                found=True
+                
+    heboutstr=" ".join(pasukoutheb[:len(pasukoutheb)-1])+" "+lastword
     tropout=[]
     printer=False
     found=False
@@ -96,12 +118,13 @@ def getTrop(sefer, perek, pasuk):
                 out.append('munach-etnachta')
             else:
                 out.append('munach')
-    return out
+    return out,heboutstr
 
 sefer=int(input('Which sefer would you like to see? '))
 perek=int(input('Which perek would you like to see? '))
 pasuk=int(input('Which pasuk would you like to see? '))
 
-out=getTrop(sefer,perek,pasuk)
+out,outstr=getTrop(sefer,perek,pasuk)
 out=" ".join(out)
 print(out)
+print(outstr)
