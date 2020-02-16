@@ -1,11 +1,16 @@
 import numpy as np
-from taamim_torah import *
+import taamim_torah
+import taamim_haftorah
 import math
 
-def get_notes(taamim):
+def get_notes(taamim, is_haf):
     notes = []
     timing = []
     pronunc = []
+
+    trop_notes = taamim_torah.trop_notes if not is_haf else taamim_haftorah.trop_notes
+    trop_name = taamim_torah.trop_name if not is_haf else taamim_haftorah.trop_name
+
     for taam in taamim:
         notes += trop_notes[taam]
         notes += [np.nan]

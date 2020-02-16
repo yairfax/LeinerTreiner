@@ -11,8 +11,8 @@ from play import *
 recording = False
 playing = False
 
-def example_gen(expected_taamim):
-    expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
+def example_gen(expected_taamim, is_haf):
+    expected_notes, expected_timing, pronunc = get_notes(expected_taamim, is_haf)
 
     transposed_expected = [i + 70 for i in expected_notes]
 
@@ -23,13 +23,13 @@ def examplePlay():
     expected_taamim, words = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
 
     pasuk.config(text=words)
-    
-    _thread.start_new_thread(example_gen, (expected_taamim,))
+
+    _thread.start_new_thread(example_gen, (expected_taamim, seferVal > 5,))
 
 def exampleListPlay():
     expected_taamim = taamListE.get().split(',')
 
-    example_gen(expected_taamim)
+    example_gen(expected_taamim, False)
 
 def stop():
     global playing
@@ -128,10 +128,10 @@ def playWav(filename):
     stream.close()
     p.terminate()
 
-def analyze_gen(expected_taamim):
+def analyze_gen(expected_taamim, is_haf):
     given = extract_notes_from_file('output.wav')
 
-    expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
+    expected_notes, expected_timing, pronunc = get_notes(expected_taamim, is_haf)
 
     mean_g = np.mean(given)
     mean_e = np.nanmean(expected_notes)
@@ -147,14 +147,14 @@ def analyze():
     seferVal = seferMenuVals[seferE.get()]
     expected_taamim, _ = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
 
-    analyze_gen(expected_taamim)
+    analyze_gen(expected_taamim, seferVal > 5)
 
     
 
 def analyzeList():
     expected_taamim = taamListE.get().split(',')
 
-    analyze_gen(expected_taamim)
+    analyze_gen(expected_taamim, False)
     
 
 root = Tk()
