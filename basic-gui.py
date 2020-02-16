@@ -158,7 +158,7 @@ def analyzeList():
     
 
 root = Tk()
-root.title("Leining Treining")
+root.title("Leiner Treiner")
 root.geometry("1000x1000")
 
 app = Frame(root)
@@ -182,8 +182,8 @@ pasuk = Label(app)
 seferE = StringVar(app)
 seferE.set("BeReishit") # initial value
 
-seferMenu = OptionMenu(app, seferE, "BeReishit", "Shemot", "VaYikra", "BaMidbar", "Devarim")
-seferMenuVals = {'BeReishit':1,'Shemot':2,'VaYikra':3,'BaMidbar':4,'Devarim':5}
+seferMenu = OptionMenu(app, seferE, "BeReishit", "Shemot", "VaYikra", "BaMidbar", "Devarim", "Yehoshua", "Shoftim", "Shmuel1", "Shmuel2", "Melachim1", "Melachim2", "Yeshayahu", "Yirmiyahu", "Yechezkel", "Hoshea", "Yoel", "Amos", "Ovadia", "Yonah", "Michah", "Nachum", "Chabakuk", "Tsefaniah", "Chagai", "Zechariah", "Malachi")
+seferMenuVals = {'BeReishit':1,'Shemot':2,'VaYikra':3,'BaMidbar':4,'Devarim':5, "Yehoshua":6, "Shoftim":7, "Shmuel1":8, "Shmuel2":9, "Melachim1":10, "Melachim2":11, "Yeshayahu":12, "Yirmiyahu":13, "Yechezkel":14, "Hoshea":15, "Yoel":16, "Amos":17, "Ovadia":18, "Yonah":19, "Michah":20, "Nachum":21, "Chabakuk":22, "Tsefaniah":23, "Chagai":24, "Zechariah":25, "Malachi":26}
 
 taamListDesc = Label(app, text='Enter a commma-separated list of these words in the entry below:\n'\
     'munach-zarka,zarka,munach-segol,segol,\nmunach-munach-rvii,munach-rvii,rvii,maphakh,pashta,\n'\
