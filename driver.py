@@ -20,7 +20,12 @@ Sequence of t'amim to be played. Options are:
 Note that the symbols for different munachim include
 the t'amim that follow them for the sake of differentiation,
 but the actual taam is still just a munach. For example,
-'munach-munach-rvii' is the second munach preceding a rvii.
+'munach-rvii' is the just the munach preceding a rvii, and
+'munach-munach-rvii' is the taam preceding that.
+Note also that it is up to the user to input t'amim that make
+sense in sequence. For example, the sequence 'munach-munach-rvii' 'tlisha-gdola'
+would not be found anywhere in Torah, but our program
+doesn't differentiate that.
 """)
 
 args = parser.parse_args()
@@ -39,6 +44,3 @@ given_transpose = [i - offset for i in given]
 expected_notes, expected_timing, pronunc = get_notes(given_taamim)
 
 plot_taam(expected_notes, expected_timing, given_transpose, midi2note(given[0]), pronunc)
-
-# print(a)
-# print([i[0] for i in groupby(a)])

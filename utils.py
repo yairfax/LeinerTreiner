@@ -7,13 +7,13 @@ def get_notes(taamim):
     pronunc = []
     for taam in taamim:
         notes += trop_notes[taam]
-        notes += [np.nan, np.nan]
+        notes += [np.nan]
 
         timing += [1 for i in range(len(trop_notes[taam]))]
-        timing += [1, 1]
+        timing += [1]
 
         pronunc += trop_name[taam]
-        pronunc += ["", ""]
+        pronunc += [""]
     
     notes = notes[:-2]
     timing = [i for i in range(len(timing))]
