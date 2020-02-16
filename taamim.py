@@ -1,4 +1,4 @@
-trop = {
+trop_notes = {
     'munach-zarka': [2, 5, 4],
     'zarka': [2, 0, -1, -3, -1, -5],
     'munach-segol': [-5, 2],
@@ -6,7 +6,7 @@ trop = {
     'munach-munach-rvii': [0, 2, 4, 0, 2],
     'munach-rvii': [2, 5, 4],
     'rvii': [4, 2, 0, -1, -3],
-    'maphakh': [7, 0],
+    'mapakh': [7, 0],
     'pashta': [0, 7, 4],
     'munach-katon': [4, 2, 7],
     'zakef-katon': [7, 4, 2],
@@ -15,7 +15,7 @@ trop = {
     'tipcha': [2, 4],
     'munach-etnachta': [4, 0],
     'etnachta': [0, 2],
-    'pazer': [0, 2, 4, 5, 7, 5, 4, 2, 0],
+    'pazer': [-5, 0, 2, 4, 5, 7, 5, 4, 2, 0],
     'tlisha-ktana': [0, 2, 4, 2, -5],
     'tlisha-gdola': [0, 2, 4, 2, 0],
     'kadma': [-5, 0],
@@ -25,11 +25,45 @@ trop = {
     'darga': [7, 2, 4, 2],
     'tvir': [2, 0, -1, 0, 2],
     'yetiv': [9, 7],
-    'shalshelet': [0, 2, 4, 5, 7, 5, 4, 2, 0, 2, 4, 5, 7, 5, 4, 2, 0, 2, 4, 5, 7, 5, 4, 2, 0],
+    'shalshelet': [-5, 0, 2, 4, 5, 7, 5, 4, 2, 0, 2, 4, 5, 7, 5, 4, 2, 0, 2, 4, 5, 7, 5, 4, 2, 0],
     'sof-pasuk': [2, 4, 0]
 }
 
 trop_name = {
+    'munach-zarka': ['Mu', 'na', 'ach'],
+    'zarka': ['Zarka', 'a', 'a', 'a', 'a', 'a'],
+    'munach-segol': ['Mu', 'nach'],
+    'segol': ['Sego', 'o', 'o', 'o', 'ol'],
+    'munach-munach-rvii': ['Muna', 'a', 'a', 'a', 'ach'],
+    'munach-rvii': ['Mu', 'na', 'ach'],
+    'rvii': ['Rvi', 'i', 'i', 'i', 'i'],
+    'mapakh': ['Mapa', 'ach'],
+    'pashta': ['Pash', 'ta', 'a'],
+    'munach-katon': ['Muna', 'a', 'ach'],
+    'zakef-katon': ['Ka', 'to', 'on'],
+    'zakef-gadol': ['Zakef Ga', 'do', 'o', 'o', 'o', 'ol'],
+    'mercha': ['Mercha', 'a'],
+    'tipcha': ['Tip', 'cha'],
+    'munach-etnachta': ['Mu', 'nach'],
+    'etnachta': ['Etnach', 'ta'],
+    'pazer': ['Pa', 'ze', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'er'],
+    'tlisha-ktana': ['Tlisha Ktana', 'a', 'a', 'a', 'a'],
+    'tlisha-gdola': ['Tlisha Gdola', 'a', 'a', 'a', 'a'],
+    'kadma': ['Kad', 'ma'],
+    'vazla': ['V\'', 'az', 'la', 'a', 'a', 'a'],
+    'azla-geresh': ['Az', 'la', 'Ge', 'resh'],
+    'gershaim': ['Ger', 'sha', 'i', 'i', 'i', 'i', 'im'],
+    'darga': ['Darga', 'a', 'a', 'a'],
+    'tvir': ['T\'', 'vi', 'i', 'i', 'ir'],
+    'yetiv': ['Yei', 'iv'],
+    'shalshelet': ['Shal', 'she', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'let'],
     'sof-pasuk': ['Sof Pa', 'su', 'uk'],
-    
 }
+
+trop = ['munach-zarka', 'zarka', 'munach-segol',
+    'segol', 'munach-munach-rvii', 'munach-rvii', 'rvii',
+    'mapakh', 'pashta', 'munach-katon', 'zakef-katon',
+    'mercha', 'tipcha', 'munach-etnachta', 'etnachta',
+    'pazer', 'tlisha-ktana', 'tlisha-gdola', 'kadma',
+    'vazla', 'azla-geresh', 'gershaim', 'darga', 'tvir', 
+    'yetiv', 'shalshelet', 'sof-pasuk']
