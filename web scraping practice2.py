@@ -2,10 +2,10 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from bs4 import NavigableString
 import pandas as pd
-from time import time
 
 sefer=input('Which sefer would you like to see? ')
-perek=input('Which perek would you like to see? ')       
+perek=input('Which perek would you like to see? ')
+pasuk=int(input('Which pasuk would you like to see? '))
 
 options=webdriver.ChromeOptions()
 options.add_argument('headless')
@@ -39,8 +39,6 @@ for a in soup.findAll('body',href=False, attrs={'id':'body_box_1'}):
                 wordsheb.append(notes[len(wordsheb)])
             wordsheb.append(e.text)
 driver.quit()
-
-pasuk=int(input('Which pasuk would you like to see? '))
 
 printer=False
 found=False
