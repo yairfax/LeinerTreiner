@@ -67,3 +67,5 @@ trop = ['munach-zarka', 'zarka', 'munach-segol',
     'pazer', 'tlisha-ktana', 'tlisha-gdola', 'kadma',
     'vazla', 'azla-geresh', 'gershaim', 'darga', 'tvir', 
     'yetiv', 'shalshelet', 'sof-pasuk']
+
+# Use the force Luke!
