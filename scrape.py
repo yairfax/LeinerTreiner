@@ -1,7 +1,4 @@
-from selenium import webdriver
 from bs4 import BeautifulSoup
-from bs4 import NavigableString
-import pandas as pd
 import requests
 
 
@@ -9,8 +6,6 @@ def getTrop(sefer, perek, pasuk):
     # options=webdriver.ChromeOptions()
     # options.add_argument('headless')
     # driver = webdriver.Chrome("/usr/local/bin/chromedriver",options=options)
-    words=[]
-    wordsheb=[]
     notes=[]
     #driver.get("https://www.tanakhml.org/d11.php2xml?sfr="+sefer+"&prq="+perek+"&psq=1&lvl=99&pnt=tru&acc=tru&dia=tru&enc=mcw&xml=tru")
 
@@ -31,28 +26,23 @@ def getTrop(sefer, perek, pasuk):
                         else:
                             break
                     d=d.split('.')
-                    words.append(int(d[2]))
                     notes.append(int(d[2]))
-                words.append(c.text)
                 notes.append(c.next_element.next_element[7:11])
-            for e in b.findAll('span',attrs={'class':'bhs_inline'}):
-                if isinstance(notes[len(wordsheb)],int):
-                    wordsheb.append(notes[len(wordsheb)])
-                wordsheb.append(e.text)
     # driver.quit()
 
     tropout=[]
     printer=False
     found=False
-    for i in notes:
-        if isinstance(i,int) and i!=pasuk:
-            printer=False
-        if printer==True:
-            tropout.append(i)
-        if isinstance(i,int) and i==pasuk and found==False:
-            printer=True
-            found=True
-
+    for i in range(len(notes)):
+        if i%2!=1:
+            if isinstance(notes[i],int) and notes[i]!=pasuk:
+                printer=False
+            if printer==True:
+                tropout.append(notes[i])
+            if isinstance(notes[i],int) and notes[i]==pasuk and found==False:
+                printer=True
+                found=True
+    tropout.append('SLQ0')
     out=[]
     taamim={
         'ZAR2':'zarka',
@@ -108,9 +98,8 @@ def getTrop(sefer, perek, pasuk):
                 out.append('munach')
     return out
 
-
-# sefer=input('Which sefer would you like to see? ')
-# perek=input('Which perek would you like to see? ')
+# sefer=int(input('Which sefer would you like to see? '))
+# perek=int(input('Which perek would you like to see? '))
 # pasuk=int(input('Which pasuk would you like to see? '))
 
 # out=getTrop(sefer,perek,pasuk)

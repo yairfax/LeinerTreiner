@@ -111,8 +111,6 @@ def playWav():
 def analyze():
     given = extract_notes_from_file(0, 'output.wav')
 
-    
-
     expected_taamim = getTrop(1, int(perekE.get()), int(pasukE.get()))
 
     offset = given[0] - trop_notes[expected_taamim[0]][0]
