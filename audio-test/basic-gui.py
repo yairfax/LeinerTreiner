@@ -115,6 +115,11 @@ def analyze():
 
     print("Sefer:",seferVal," Perek:", perekVal, " Pasuk:", pasukVal)
 
+def analyzeList():
+    taamList = taamListE.get().split(',')
+    for i in taamList:
+        print(i)
+
 root = Tk()
 root.title("Leining Treining")
 root.geometry("500x500")
@@ -127,7 +132,8 @@ example = Button(app, text="Example", command=examplePlay)
 record = Button(app, text="Record", command=record)
 play = Button(app, text="Play Recording", command=startPlay)
 stop = Button(app, text="Stop", command=stop)
-analyzeTaam = Button(app, text="Analyze", command=analyze)
+analyzeTaam = Button(app, text="Analyze Pasuk", command=analyze)
+analyzeListButton = Button(app, text="Analyze List", command=analyzeList)
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
 
@@ -138,20 +144,29 @@ seferE.set("BeReishit") # initial value
 seferMenu = OptionMenu(app, seferE, "BeReishit", "Shemot", "VaYikra", "BaMidbar", "Devarim")
 seferMenuVals = {'BeReishit':1,'Shemot':2,'VaYikra':3,'BaMidbar':4,'Devarim':5}
 
+taamListDesc = Label(app, text='Enter a commma-separated list of these words in the entry below:\n'\
+    'munach-zarka,zarka,munach-segol,segol,\nmunach-munach-rvii,munach-rvii,rvii,maphakh,pashta,\n'\
+    'munach-katon,zakef-katon,zakef-gadol,mercha,\ntipcha,munach-etnachta,etnachta,pazer,\n'\
+    'tlisha-ktana,tlisha-gdola,kadma,vazla,azla-geresh,\ngershaim,darga,tvir,yetiv,shalshelet,sof-pasuk')
+
 # # start.grid()
 record.grid(row = 2, column = 0)
 play.grid(row = 2, column = 1)
 stop.grid(row = 2, column = 2)
 example.grid(row=2,column=3)
+analyzeListButton.grid(row=14, column=0)
 
 w.grid(row =1, column = 0, columnspan=5)
+taamListDesc.grid(row=6,column=0, columnspan=5, rowspan=7)
 
 seferL = Label(app, text = "Sefer:")
 perekL = Label(app, text = "Perek:") 
 pasukL = Label(app, text = "Pasuk:") 
 
+taamListE = Entry(app)
 pasukE = Entry(app)
 perekE = Entry(app)
+# taamListE = Entry(app)
 
 seferL.grid(row=3, column=0)
 seferMenu.grid(row=3, column=1)
@@ -159,6 +174,7 @@ perekL.grid(row=4, column=0)
 perekE.grid(row=4, column=1)
 pasukL.grid(row=5, column=0)
 pasukE.grid(row=5, column=1)
+taamListE.grid(row=13, column=0, columnspan=5)
 
 
 analyzeTaam.grid(row=6, column=0)
