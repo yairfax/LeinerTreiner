@@ -11,15 +11,23 @@ from play import *
 recording = False
 playing = False
 
-def examplePlay():
-    seferVal = seferMenuVals[seferE.get()]
-    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
-
+def example_gen(expected_taamim):
     expected_notes, expected_timing, pronunc = get_notes(expected_taamim)
 
     transposed_expected = [i + 70 for i in expected_notes]
 
     play_taam(transposed_expected)
+
+def examplePlay():
+    seferVal = seferMenuVals[seferE.get()]
+    expected_taamim = getTrop(seferVal, int(perekE.get()), int(pasukE.get()))
+
+    example_gen(expected_taamim)
+
+def exampleListPlay():
+    expected_taamim = taamListE.get().split(',')
+
+    example_gen(expected_taamim)
 
 def stop():
     global playing
@@ -78,6 +86,7 @@ def recordWav():
     wf.setframerate(fs)
     wf.writeframes(b''.join(frames))
     wf.close()
+
 
 def startPlay():
     if not recording and not playing:
@@ -154,12 +163,14 @@ app = Frame(root)
 app.grid()
 
 # start = Button(app, text="Start Scan", command=start)
-example = Button(app, text="Example", command=examplePlay)
+example = Button(app, text="Pasuk Example", command=examplePlay)
 record = Button(app, text="Record", command=record)
 play = Button(app, text="Play Recording", command=startPlay)
 stop = Button(app, text="Stop", command=stop)
 analyzeTaam = Button(app, text="Analyze Pasuk", command=analyze)
 analyzeListButton = Button(app, text="Analyze List", command=analyzeList)
+listExampleButton = Button(app, text="List Example", command=exampleListPlay)
+
 
 w = Label(app, text="Click record to record a new Taam or play to replay recording")
 
@@ -182,7 +193,7 @@ pasukE = Entry(app)
 perekE = Entry(app)
 
 seferL = Label(app, text = "Sefer:")
-perekL = Label(app, text = "Perek:") 
+perekL = Label(app, text = "Perek:")
 pasukL = Label(app, text = "Pasuk:")
 
 w.grid(row =1, column = 0, columnspan=5)
@@ -206,6 +217,7 @@ taamListDesc.grid(row=7,column=0, columnspan=5, rowspan=12)
 taamListE.grid(row=19, column=0, columnspan=5)
 
 analyzeListButton.grid(row=20, column=0)
+listExampleButton.grid(row=20, column=1)
 
 
 root.mainloop()
